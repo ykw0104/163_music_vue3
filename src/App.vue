@@ -1,8 +1,6 @@
 <template>
   <div>
-    <router-link to="/">Home</router-link>
-     <router-link to="/about">About</router-link>
-    <router-view></router-view>
+    <router-view />
   </div>
 </template>
 
@@ -16,4 +14,16 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss">
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "微软雅黑";
+}
+
+.icon {
+  width: 0.3rem;
+  height: 0.3rem;
+}
+</style>

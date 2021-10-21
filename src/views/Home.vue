@@ -1,23 +1,16 @@
 <template>
   <div class="home">
-    <div id="d1">
-      <svg class="icon" aria-hidden="true">
-        <use xlink:href="#icon-bofang"></use>
-      </svg>
-
-      <span class="iconfont icon-bofang"></span>
-    </div>
+    <top-nav></top-nav>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
+import TopNav from "@/components/TopNav";
 
 export default {
   name: "Home",
   components: {
-    HelloWorld,
+    TopNav,
   },
 };
 </script>
