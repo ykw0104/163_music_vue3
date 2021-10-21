@@ -11,7 +11,7 @@ function remSize() {
   document.documentElement.style.fontSize = deviceWidth / 7.5 + "px";
   document.querySelector("body").style.fontSize = 0.4 + "rem";
 }
-g;
+
 remSize();
 
 window.onresize = function() {

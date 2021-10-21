@@ -1,6 +1,12 @@
 <template>
   <div class="home">
-    <div id="d1"></div>
+    <div id="d1">
+      <svg class="icon" aria-hidden="true">
+        <use xlink:href="#icon-bofang"></use>
+      </svg>
+
+      <span class="iconfont icon-bofang"></span>
+    </div>
   </div>
 </template>
 
