@@ -16,13 +16,15 @@
         v-for="(item, index) in imgs"
         :key="index"
       >
-        <img :src="item" alt="" />
+        <img :src="item.pic" alt="" />
       </swiper-slide>
     </swiper>
   </div>
 </template>
 <script>
-import { defineComponent, reactive, ref } from "vue";
+import { defineComponent, reactive, ref, onMounted } from "vue";
+import { getBanner } from "@/api/index";
+
 /* 引入swiper相关 */
 import { Swiper, SwiperSlide } from "swiper/vue";
 import "swiper/swiper.scss";
@@ -43,7 +45,6 @@ export default defineComponent({
     Swiper,
     SwiperSlide,
   },
-  name: "FilmSwiper",
   setup() {
     /* swiper参数设置 */
     const swiper_options = reactive({
@@ -58,18 +59,18 @@ export default defineComponent({
         clickable: true,
       },
     });
-    const imgs = ref([
-      require("../assets/img/s1.jpg"),
-      require("../assets/img/s2.jpg"),
-      require("../assets/img/s3.jpg"),
-    ]);
+    const imgs = ref(null);
 
+    /* 获取轮播图片 */
+    getBanner(1).then((res) => {
+      imgs.value = res.data.banners;
+    });
     /* ----------------------------------------------------------------------------------------------------- */
     const onSwiper = (swiper) => {
-      console.log(swiper);
+      // console.log(swiper);
     };
     const onSlideChange = () => {
-      console.log("slide change");
+      // console.log("slide change");
     };
     return {
       swiper_options,
@@ -84,7 +85,7 @@ export default defineComponent({
 <style lang="scss">
 #swiperIndex {
   width: 7.1rem;
-  height: 3rem;
+  height: 2.6rem;
   border-radius: 0.1rem;
 
   .top-swiper-slide {
