@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="swiperCom">
     <swiper
       id="swiperIndex"
       class="top-swiper"
@@ -83,17 +83,21 @@ export default defineComponent({
 });
 </script>
 <style lang="scss">
-#swiperIndex {
-  width: 7.1rem;
-  height: 2.6rem;
-  border-radius: 0.1rem;
+#swiperCom {
+  width: 7.5rem;
 
-  .top-swiper-slide {
-    width: 100%;
-  }
+  #swiperIndex {
+    width: 7.1rem;
+    height: 2.6rem;
+    border-radius: 0.1rem;
 
-  .swiper-pagination-bullet-active {
-    background-color: orange;
+    .top-swiper-slide {
+      width: 100%;
+    }
+
+    .swiper-pagination-bullet-active {
+      background-color: orange;
+    }
   }
 }
 </style>

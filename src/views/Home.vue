@@ -3,6 +3,7 @@
     <top-nav></top-nav>
     <top-swiper></top-swiper>
     <icon-list></icon-list>
+    <music-list></music-list>
   </div>
 </template>
 
@@ -10,6 +11,7 @@
 import TopNav from "@/components/TopNav";
 import TopSwiper from "@/components/TopSwiper";
 import IconList from "@/components/IconList";
+import MusicList from "@/components/MusicList";
 
 export default {
   name: "Home",
@@ -17,6 +19,7 @@ export default {
     TopNav,
     TopSwiper,
     IconList,
+    MusicList,
   },
 };
 </script>

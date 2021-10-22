@@ -14,3 +14,14 @@ export const getBanner = (type = 0) => {
     },
   });
 };
+
+/* 获取推荐歌单 */
+export const getMusicList = (limitNum = 10) => {
+  return request({
+    method: "GET",
+    url: "/personalized",
+    params: {
+      limit: limitNum,
+    },
+  });
+};

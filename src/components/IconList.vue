@@ -42,6 +42,8 @@ export default defineComponent({
   display: flex;
   justify-content: space-between;
   padding: 0.4rem;
+  width: 7.5rem;
+
   .icon-item {
     display: flex;
     flex-direction: column;
