@@ -25,3 +25,14 @@ export const getMusicList = (limitNum = 10) => {
     },
   });
 };
+
+/* 获取歌单详情 */
+export const getPlayListDetail = (musicId) => {
+  return request({
+    method: "",
+    url: "/playlist/detail",
+    params: {
+      id: musicId,
+    },
+  });
+};

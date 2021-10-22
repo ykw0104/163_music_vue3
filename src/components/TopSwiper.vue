@@ -16,7 +16,11 @@
         v-for="(item, index) in imgs"
         :key="index"
       >
-        <img :src="item.pic" alt="" />
+        <!-- <img :src="item.pic" alt="" /> -->
+        <div
+          class="top-swiper-slide-content"
+          :style="'background-image:url(' + item.pic + ')'"
+        ></div>
       </swiper-slide>
     </swiper>
   </div>
@@ -93,6 +97,15 @@ export default defineComponent({
 
     .top-swiper-slide {
       width: 100%;
+
+      .top-swiper-slide-content {
+        width: 100%;
+        height: 100%;
+
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+      }
     }
 
     .swiper-pagination-bullet-active {

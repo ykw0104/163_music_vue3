@@ -26,4 +26,9 @@ export default defineComponent({
   width: 0.3rem;
   height: 0.3rem;
 }
+
+a {
+  color: #333;
+  text-decoration: none;
+}
 </style>

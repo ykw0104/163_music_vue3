@@ -5,12 +5,14 @@
       <div class="more">查看更多</div>
     </div>
 
+    <!-- 歌单列表 -->
     <div class="music-list-detail">
       <swiper class="swiper-music" :slides-per-view="3" :space-between="10">
         <swiper-slide
           class="swiper-slide-music"
           v-for="(item, index) in musicList"
           :key="index"
+          @click="handleSlideClick(item.id)"
         >
           <img :src="item.picUrl" :alt="item.name" />
           <div class="name">{{ item.name }}</div>
@@ -28,7 +30,8 @@
 </template>
 
 <script>
-import { defineComponent, ref, reactive } from "vue";
+import { defineComponent, ref, onMounted } from "vue";
+import { useRouter } from "vue-router";
 import { getMusicList } from "@/api";
 
 /* 引入swiper相关 */
@@ -41,9 +44,12 @@ export default defineComponent({
     SwiperSlide,
   },
   setup() {
+    const router = useRouter();
+
     const musicList = ref(null);
 
-    getMusicList().then((res) => {
+    onMounted(async () => {
+      let res = await getMusicList();
       musicList.value = res.data.result;
     });
 
@@ -56,10 +62,20 @@ export default defineComponent({
       }
       return num;
     };
+
+    const handleSlideClick = (musicId) => {
+      router.push({
+        path: "/listview",
+        query: {
+          id: musicId,
+        },
+      });
+    };
     return {
       musicList,
 
       changeValue,
+      handleSlideClick,
     };
   },
 });

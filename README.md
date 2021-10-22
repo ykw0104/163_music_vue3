@@ -27,4 +27,5 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 ```
 api地址: https://neteasecloudmusicapi.vercel.app/
 github地址: https://github.com/Binaryify/NeteaseCloudMusicApi
+node app.js
 ```
