@@ -1,16 +1,19 @@
 <template>
   <div class="home">
     <top-nav></top-nav>
+    <top-swiper></top-swiper>
   </div>
 </template>
 
 <script>
 import TopNav from "@/components/TopNav";
+import TopSwiper from "@/components/TopSwiper";
 
 export default {
   name: "Home",
   components: {
     TopNav,
+    TopSwiper,
   },
 };
 </script>
