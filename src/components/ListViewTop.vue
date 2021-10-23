@@ -66,19 +66,13 @@
 
 <script>
 import { defineComponent } from "vue";
+import { changeValue } from "@/api/util";
 
 export default defineComponent({
   props: ["playList"],
   setup(props) {
     /* ----------------------------------------------------------------------------------------------------- */
-    const changeValue = (num) => {
-      if (num > 100000000) {
-        return (num / 100000000).toFixed(2) + "亿";
-      } else if (num > 10000) {
-        return (num / 10000).toFixed(2) + "万";
-      }
-      return num;
-    };
+
     return { changeValue };
   },
 });
@@ -88,7 +82,6 @@ export default defineComponent({
 .list-view-top {
   width: 7.5rem;
   padding: 0 0.4rem;
-  height: 6rem;
 
   img.bg {
     position: fixed;
