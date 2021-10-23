@@ -1,12 +1,12 @@
 <template>
-  <div class="list-view" v-if="playList">
+  <div class="list-view" v-if="state.playList">
     <!-- 歌单顶部 -->
-    <list-view-top :play-list="playList"></list-view-top>
+    <list-view-top :play-list="state.playList"></list-view-top>
   </div>
 </template>
 
 <script>
-import { defineComponent, onMounted, ref } from "vue";
+import { defineComponent, ref, reactive } from "vue";
 import { useRoute } from "vue-router";
 
 import ListViewTop from "@/components/ListViewTop";
@@ -16,14 +16,16 @@ export default defineComponent({
   components: { ListViewTop },
   setup() {
     const route = useRoute();
-    const playList = ref(null); // 歌单详情
+    const state = reactive({
+      playList: null,
+    }); // 歌单详情
 
     getPlayListDetail(route.query.id).then((res) => {
-      playList.value = res.data.playlist;
+      state.playList = res.data.playlist;
     });
 
     return {
-      playList,
+      state,
     };
   },
 });
