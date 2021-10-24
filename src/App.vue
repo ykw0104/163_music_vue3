@@ -1,13 +1,16 @@
 <template>
   <div>
     <router-view />
+    <play-controller></play-controller>
   </div>
 </template>
 
 <script>
 import { defineComponent } from "vue";
+import PlayController from "@/components/PlayController";
 
 export default defineComponent({
+  components: { PlayController },
   setup() {
     return {};
   },

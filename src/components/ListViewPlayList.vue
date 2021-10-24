@@ -142,6 +142,7 @@ export default defineComponent({
         }
 
         .content {
+          width: 4.2rem;
           margin-left: 0.4rem;
 
           .title {
@@ -149,10 +150,19 @@ export default defineComponent({
             font-size: 0.3rem;
             font-weight: 700;
             color: #000;
+
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
           }
 
           .author {
+            height: 0.36rem;
+            line-height: 0.36rem;
             font-size: 0.22rem;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
 
             .tag {
               border: 1px solid orange;

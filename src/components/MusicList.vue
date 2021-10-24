@@ -31,6 +31,7 @@
 
 <script>
 import { defineComponent, ref, onMounted } from "vue";
+import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 import { getMusicList } from "@/api";
 
@@ -44,13 +45,17 @@ export default defineComponent({
     SwiperSlide,
   },
   setup() {
+    const store = useStore();
     const router = useRouter();
 
     const musicList = ref(null);
 
+    /* 获取音乐列表 */
     onMounted(async () => {
       let res = await getMusicList();
       musicList.value = res.data.result;
+      // store.commit("setPlaylist", musicList.value.tracks);
+      // console.log(musicList.value, musicList.value.tracks);
     });
 
     /* ----------------------------------------------------------------------------------------------------- */
