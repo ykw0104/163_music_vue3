@@ -8,18 +8,32 @@
       </div>
     </div>
     <div class="right">
-      <svg class="icon" aria-hidden="true">
-        <use xlink:href="#icon-triangle-play"></use>
+      <!-- 播放或暂停列表 -->
+      <svg v-if="paused" class="icon" aria-hidden="true" @click="play">
+        <use xlink:href="#icon-bofang2"></use>
       </svg>
+      <svg v-else class="icon" aria-hidden="true" @click="play">
+        <use xlink:href="#icon-weibiaoti519"></use>
+      </svg>
+      <!-- 播放列表 -->
       <svg class="icon" aria-hidden="true">
         <use xlink:href="#icon-24gf-playlistMusic"></use>
       </svg>
     </div>
+
+    <!-- 跨域访问不了 -->
+    <!-- <audio
+      ref="audio"
+      :src="
+        `https://music.163.com/song/media/outer/url?id=${playlist[playCurrentIndex].id}.mp3`
+      "
+    ></audio> -->
+    <audio ref="audio" :src="require('./huatiancuo.mp3')"></audio>
   </div>
 </template>
 
 <script>
-import { defineComponent } from "vue";
+import { defineComponent, ref, onUpdated } from "vue";
 import { mapState } from "vuex";
 
 export default defineComponent({
@@ -27,7 +41,25 @@ export default defineComponent({
     ...mapState(["playlist", "playCurrentIndex"]),
   },
   setup() {
-    return {};
+    const audio = ref(null); // 音频对象
+    const paused = ref(true); // 默认暂停
+
+    const play = () => {
+      /* 暂停或停止播放 */
+      if (audio.value.paused) {
+        audio.value.play();
+        paused.value = false;
+      } else {
+        audio.value.pause();
+        paused.value = true;
+      }
+    };
+
+    return {
+      audio,
+      play,
+      paused,
+    };
   },
 });
 </script>
