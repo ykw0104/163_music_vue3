@@ -1,6 +1,6 @@
 <template>
   <div class="play-controller" v-if="playlist.length > 0">
-    <div class="left">
+    <div class="left" @click="isShow = !isShow">
       <img :src="playlist[playCurrentIndex].al.picUrl" alt="" />
       <div class="content">
         <div class="title">{{ playlist[playCurrentIndex].al.name }}</div>
@@ -21,6 +21,12 @@
       </svg>
     </div>
 
+    <play-music
+      v-show="isShow"
+      :play-detail="playlist[playCurrentIndex]"
+    ></play-music>
+
+    <!-- 播放音频 -->
     <audio
       ref="audio"
       :src="
@@ -35,10 +41,15 @@
 import { defineComponent, ref, computed } from "vue";
 import { mapState, useStore } from "vuex";
 
+import PlayMusic from "@/components/PlayMusic";
+
 export default defineComponent({
   // computed: {
   //   ...mapState(["playlist", "playCurrentIndex"]),
   // },
+  components: {
+    PlayMusic,
+  },
   setup() {
     const store = useStore();
     const playlist = computed(() => store.state.playlist);
@@ -46,6 +57,7 @@ export default defineComponent({
 
     const audio = ref(null); // 获取音频对象
     const paused = ref(true); // 默认暂停
+    const isShow = ref(false); // PlayMusic音乐播放页是否显示
 
     const play = () => {
       /* 暂停或停止播放 */
@@ -64,6 +76,7 @@ export default defineComponent({
       paused,
       playlist,
       playCurrentIndex,
+      isShow,
     };
   },
 });
