@@ -34,4 +34,5 @@ node app.js
 
 ```
 audio播放  vue_p1\src\components\PlayController.vue
+Vue3Marquee 文字跑马灯效果 vue_p1\src\components\PlayMusic.vue
 ```

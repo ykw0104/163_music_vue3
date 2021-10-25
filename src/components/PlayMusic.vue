@@ -16,10 +16,10 @@
       <!-- 中间歌名 -->
       <div class="center">
         <div class="title">
-          <!-- <marquee behavior="slide" direction="left">
+          <!-- 跑马灯效果 -->
+          <vue3-marquee direction="right">
             {{ playDetail.al.name }}
-          </marquee> -->
-          {{ playDetail.al.name }}
+          </vue3-marquee>
         </div>
       </div>
       <!-- 分享 -->
@@ -45,10 +45,13 @@
 
 <script>
 import { defineComponent } from "vue";
+import Vue3Marquee from "vue3-marquee";
 
 export default defineComponent({
+  components: { Vue3Marquee },
   props: ["playDetail"],
-  setup() {
+  setup(props) {
+    console.log(props.playDetail);
     return {};
   },
 });
@@ -88,6 +91,10 @@ export default defineComponent({
     padding: 0 0.4rem;
 
     color: #fff;
+
+    .title {
+      width: 5rem;
+    }
 
     .icon {
       width: 0.4rem;
