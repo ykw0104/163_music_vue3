@@ -29,9 +29,13 @@
         </svg>
       </div>
     </div>
-    <!--  ------------------------------------------------------------------->
 
-    <div class="play-content"></div>
+    <!-- 中间内容 ------------------------------------------------------------------->
+    <div class="play-content">
+      <img class="needle" src="@/assets/img/needle-ab.png" alt="" />
+      <img class="disc" src="@/assets/img/disc.png" alt="" />
+      <img class="play-img" :src="playDetail.al.picUrl" alt="" />
+    </div>
     <!--  ------------------------------------------------------------------->
 
     <div class="play-lyric"></div>
@@ -100,6 +104,49 @@ export default defineComponent({
       width: 0.4rem;
       height: 0.4rem;
       fill: #fff;
+    }
+  }
+
+  .play-content {
+    position: absolute;
+    left: 0;
+    top: 1.5rem;
+    width: 7.5rem;
+    height: 7.5rem;
+
+    img.needle {
+      position: absolute;
+      left: 3.5rem;
+      z-index: 10;
+      width: 2.5rem;
+      height: auto;
+
+      transform: rotate(-10deg);
+      transform-origin: 0.3rem 0;
+      transition: all 1s;
+    }
+
+    img.needle.active {
+      transform: rotate(8deg);
+      // transform-origin: 0.3rem 0;
+      // transition: all 1s;
+    }
+
+    img.disc {
+      position: absolute;
+      top: 2.5rem;
+      left: calc(50% - 2.75rem);
+      width: 5.5rem;
+      height: auto;
+    }
+
+    img.play-img {
+      position: absolute;
+      top: 3.55rem;
+      left: calc(50% - 1.7rem);
+      width: 3.4rem;
+      height: 3.4rem;
+      border-radius: 1.7rem;
     }
   }
 }
