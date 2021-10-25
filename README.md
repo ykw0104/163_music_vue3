@@ -34,5 +34,8 @@ node app.js
 
 ```
 audio播放  vue_p1\src\components\PlayController.vue
-Vue3Marquee 文字跑马灯效果 vue_p1\src\components\PlayMusic.vue
+vue_p1\src\components\PlayMusic.vue
+  a. Vue3Marquee 文字跑马灯效果
+  b. 唱片的指针使用transform: rotate 进行旋转
+
 ```
