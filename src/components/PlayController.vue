@@ -21,27 +21,30 @@
       </svg>
     </div>
 
-    <!-- 跨域访问不了 -->
-    <!-- <audio
+    <audio
       ref="audio"
       :src="
         `https://music.163.com/song/media/outer/url?id=${playlist[playCurrentIndex].id}.mp3`
       "
-    ></audio> -->
-    <audio ref="audio" :src="require('./huatiancuo.mp3')"></audio>
+    ></audio>
+    <!-- <audio ref="audio" :src="require('./huatiancuo.mp3')"></audio> -->
   </div>
 </template>
 
 <script>
-import { defineComponent, ref, onUpdated } from "vue";
-import { mapState } from "vuex";
+import { defineComponent, ref, computed } from "vue";
+import { mapState, useStore } from "vuex";
 
 export default defineComponent({
-  computed: {
-    ...mapState(["playlist", "playCurrentIndex"]),
-  },
+  // computed: {
+  //   ...mapState(["playlist", "playCurrentIndex"]),
+  // },
   setup() {
-    const audio = ref(null); // 音频对象
+    const store = useStore();
+    const playlist = computed(() => store.state.playlist);
+    const playCurrentIndex = computed(() => store.state.playCurrentIndex);
+
+    const audio = ref(null); // 获取音频对象
     const paused = ref(true); // 默认暂停
 
     const play = () => {
@@ -59,6 +62,8 @@ export default defineComponent({
       audio,
       play,
       paused,
+      playlist,
+      playCurrentIndex,
     };
   },
 });

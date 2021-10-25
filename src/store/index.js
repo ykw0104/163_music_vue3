@@ -10,6 +10,11 @@ export default createStore({
     setPlaylist(state, payload) {
       state.playlist = payload;
     },
+
+    /* 播放第几首歌 */
+    setPlayIndex(state, payload) {
+      state.playCurrentIndex = payload;
+    },
   },
   actions: {},
   modules: {},

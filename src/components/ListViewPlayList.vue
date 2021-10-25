@@ -44,8 +44,9 @@
           </div>
         </div>
         <div class="right">
-          <svg class="icon" aria-hidden="true">
-            <use xlink:href="#icon-24gl-playSquare"></use>
+          <!-- 播放第index首歌 -->
+          <svg class="icon" aria-hidden="true" @click="setPlayIndex(index)">
+            <use xlink:href="#icon-bofang1"></use>
           </svg>
           <svg class="icon" aria-hidden="true">
             <use xlink:href="#icon-24gf-playlistMusic"></use>
@@ -58,10 +59,14 @@
 
 <script>
 import { defineComponent } from "vue";
+import { mapMutations } from "vuex";
 import { changeValue, getRandomArrayElements, rangeRandom } from "@/api/util";
 
 export default defineComponent({
   props: ["playList"],
+  methods: {
+    ...mapMutations(["setPlayIndex"]),
+  },
   setup() {
     /* ----------------------------------------------------------------------------------------------------- */
 
