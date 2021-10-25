@@ -8,7 +8,7 @@
     <!-- 头部 ------------------------------------------------------------------->
     <div class="play-top">
       <!-- 返回 -->
-      <div class="back">
+      <div class="back" @click="$emit('back')">
         <svg class="icon" aria-hidden="true">
           <use xlink:href="#icon-zuojiantou"></use>
         </svg>
@@ -16,9 +16,10 @@
       <!-- 中间歌名 -->
       <div class="center">
         <div class="title">
-          <marquee behavior="slide" direction="left">
+          <!-- <marquee behavior="slide" direction="left">
             {{ playDetail.al.name }}
-          </marquee>
+          </marquee> -->
+          {{ playDetail.al.name }}
         </div>
       </div>
       <!-- 分享 -->

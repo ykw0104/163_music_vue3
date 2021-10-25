@@ -24,6 +24,7 @@
     <play-music
       v-show="isShow"
       :play-detail="playlist[playCurrentIndex]"
+      @back="isShow = !isShow"
     ></play-music>
 
     <!-- 播放音频 -->
