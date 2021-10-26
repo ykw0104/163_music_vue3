@@ -9,7 +9,7 @@
     </div>
     <div class="right">
       <!-- 播放或暂停列表 -->
-      <svg v-if="paused" class="icon" aria-hidden="true" @click="play">
+      <svg v-if="isPaused" class="icon" aria-hidden="true" @click="play">
         <use xlink:href="#icon-bofang2"></use>
       </svg>
       <svg v-else class="icon" aria-hidden="true" @click="play">
@@ -24,17 +24,18 @@
     <play-music
       v-show="isShow"
       :play-detail="playlist[playCurrentIndex]"
+      :is-paused="isPaused"
+      :play="play"
       @back="isShow = !isShow"
     ></play-music>
 
     <!-- 播放音频 -->
     <audio
-      ref="audio"
+      ref="audioRef"
       :src="
         `https://music.163.com/song/media/outer/url?id=${playlist[playCurrentIndex].id}.mp3`
       "
     ></audio>
-    <!-- <audio ref="audio" :src="require('./huatiancuo.mp3')"></audio> -->
   </div>
 </template>
 
@@ -56,25 +57,25 @@ export default defineComponent({
     const playlist = computed(() => store.state.playlist);
     const playCurrentIndex = computed(() => store.state.playCurrentIndex);
 
-    const audio = ref(null); // 获取音频对象
-    const paused = ref(true); // 默认暂停
+    const audioRef = ref(null); // 获取音频对象
+    const isPaused = ref(true); // 默认暂停
     const isShow = ref(false); // PlayMusic音乐播放页是否显示
 
     const play = () => {
       /* 暂停或停止播放 */
-      if (audio.value.paused) {
-        audio.value.play();
-        paused.value = false;
+      if (audioRef.value.paused) {
+        audioRef.value.play();
+        isPaused.value = false;
       } else {
-        audio.value.pause();
-        paused.value = true;
+        audioRef.value.pause();
+        isPaused.value = true;
       }
     };
 
     return {
-      audio,
+      audioRef,
       play,
-      paused,
+      isPaused,
       playlist,
       playCurrentIndex,
       isShow,

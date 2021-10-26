@@ -32,7 +32,13 @@
 
     <!-- 中间内容 ------------------------------------------------------------------->
     <div class="play-content">
-      <img class="needle" src="@/assets/img/needle-ab.png" alt="" />
+      <!-- active: 控制needle的旋转 -->
+      <img
+        class="needle"
+        :class="{ active: !isPaused }"
+        src="@/assets/img/needle-ab.png"
+        alt=""
+      />
       <img class="disc" src="@/assets/img/disc.png" alt="" />
       <img class="play-img" :src="playDetail.al.picUrl" alt="" />
     </div>
@@ -42,8 +48,35 @@
     <!--  ------------------------------------------------------------------->
 
     <div class="process"></div>
-    <!--  ------------------------------------------------------------------->
-    <div class="play-footer"></div>
+    <!-- 底部的控制播放键 ------------------------------------------------------------------->
+    <div class="play-footer">
+      <svg class="icon" aria-hidden="true" @click="play">
+        <use xlink:href="#icon-xunhuan"></use>
+      </svg>
+      <svg class="icon" aria-hidden="true" @click="play">
+        <use xlink:href="#icon-shangyishoushangyige"></use>
+      </svg>
+
+      <!-- 3.1 播放按钮 -->
+      <svg
+        v-if="isPaused"
+        class="icon play-bofang"
+        aria-hidden="true"
+        @click="play"
+      >
+        <use xlink:href="#icon-bofang1"></use>
+      </svg>
+      <!-- 3.2 暂停按钮 -->
+      <svg v-else class="icon play-bofang" aria-hidden="true" @click="play">
+        <use xlink:href="#icon-weibiaoti519"></use>
+      </svg>
+      <svg class="icon" aria-hidden="true" @click="play">
+        <use xlink:href="#icon-xiayigexiayishou"></use>
+      </svg>
+      <svg class="icon" aria-hidden="true" @click="play">
+        <use xlink:href="#icon-liebiao"></use>
+      </svg>
+    </div>
   </div>
 </template>
 
@@ -53,9 +86,8 @@ import Vue3Marquee from "vue3-marquee";
 
 export default defineComponent({
   components: { Vue3Marquee },
-  props: ["playDetail"],
+  props: ["playDetail", "isPaused", "play"],
   setup(props) {
-    console.log(props.playDetail);
     return {};
   },
 });
@@ -147,6 +179,29 @@ export default defineComponent({
       width: 3.4rem;
       height: 3.4rem;
       border-radius: 1.7rem;
+    }
+  }
+
+  .play-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 7.5rem;
+    height: 1.5rem;
+    padding: 0 0.4rem;
+
+    .icon {
+      width: 0.5rem;
+      height: 0.5rem;
+      fill: #fff;
+
+      &.play-bofang {
+        width: 1rem;
+        height: 1rem;
+      }
     }
   }
 }
