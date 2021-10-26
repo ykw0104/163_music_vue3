@@ -40,7 +40,7 @@
 </template>
 
 <script>
-import { defineComponent, ref, computed } from "vue";
+import { defineComponent, ref, computed, onMounted, onUpdated } from "vue";
 import { mapState, useStore } from "vuex";
 
 import PlayMusic from "@/components/PlayMusic";
@@ -71,6 +71,19 @@ export default defineComponent({
         isPaused.value = true;
       }
     };
+    onMounted(() => {
+      // console.log("mounted", playlist.value);
+    });
+
+    onUpdated(() => {
+      // console.log("updated", playlist.value);
+      /* 同步歌词 */
+      if (playlist.value.length > 0) {
+        store.dispatch("reqLyric", {
+          id: playlist.value[playCurrentIndex.value].id,
+        });
+      }
+    });
 
     return {
       audioRef,

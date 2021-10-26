@@ -31,7 +31,7 @@
     </div>
 
     <!-- 中间内容 ------------------------------------------------------------------->
-    <div class="play-content">
+    <div v-show="!isLyric" class="play-content">
       <!-- active: 控制needle的旋转 -->
       <img
         class="needle"
@@ -42,12 +42,21 @@
       <img class="disc" src="@/assets/img/disc.png" alt="" />
       <img class="play-img" :src="playDetail.al.picUrl" alt="" />
     </div>
-    <!--  ------------------------------------------------------------------->
 
-    <div class="play-lyric"></div>
-    <!--  ------------------------------------------------------------------->
+    <!-- 歌词 ------------------------------------------------------------------->
+    <div v-show="isLyric" class="play-lyric">
+      <p
+        :class="{ active: true }"
+        v-for="(item, index) in $store.getters.lyricList"
+        :key="index"
+      >
+        {{ item.lyric }}
+      </p>
+    </div>
 
+    <!--  ------------------------------------------------------------------->
     <div class="process"></div>
+
     <!-- 底部的控制播放键 ------------------------------------------------------------------->
     <div class="play-footer">
       <svg class="icon" aria-hidden="true" @click="play">
@@ -81,14 +90,22 @@
 </template>
 
 <script>
-import { defineComponent } from "vue";
+import { defineComponent, ref, computed } from "vue";
+import { useStore } from "vuex";
 import Vue3Marquee from "vue3-marquee";
 
 export default defineComponent({
   components: { Vue3Marquee },
   props: ["playDetail", "isPaused", "play"],
   setup(props) {
-    return {};
+    const isLyric = ref(true); // 是否显示歌词
+    const store = useStore();
+    const lyric = computed(() => store.state.lyric); // 获取vuex里的歌词
+
+    return {
+      isLyric,
+      lyric,
+    };
   },
 });
 </script>
@@ -179,6 +196,22 @@ export default defineComponent({
       width: 3.4rem;
       height: 3.4rem;
       border-radius: 1.7rem;
+    }
+  }
+
+  .play-lyric {
+    position: absolute;
+    left: 0;
+    top: calc(50% - 4rem);
+    width: 7.5rem;
+    height: 8rem;
+    padding: 0.2rem 0;
+    text-align: center;
+    overflow: scroll;
+    color: #fff;
+
+    .active {
+      color: red;
     }
   }
 

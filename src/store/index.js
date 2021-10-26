@@ -1,9 +1,35 @@
 import { createStore } from "vuex";
+import { getLyric } from "@/api";
 
 export default createStore({
   state: {
     playlist: [], // 播放列表
     playCurrentIndex: 0, // 当前播放位置
+    lyric: "", //歌词
+  },
+  getters: {
+    /* 处理歌词 */
+    lyricList(state) {
+      const arr = state.lyric.split(/\n/gis).map((item, i) => {
+        const min = item.slice(1, 3); // 截取分
+        const second = item.slice(4, 6); // 截取秒
+        const mill = item.slice(7, 10); // 截取毫秒
+        return {
+          min,
+          second,
+          mill,
+          lyric: item.slice(11), // 截取歌词
+          // 歌词时间
+          time:
+            parseInt(mill) +
+            parseInt(second) * 1000 +
+            parseInt(min) * 60 * 1000,
+          content: item, // 原内容
+        };
+      });
+
+      return arr;
+    },
   },
   mutations: {
     /* 设置播放列表 */
@@ -15,7 +41,18 @@ export default createStore({
     setPlayIndex(state, payload) {
       state.playCurrentIndex = payload;
     },
+
+    /* 设置歌词 */
+    setLyric(state, payload) {
+      state.lyric = payload;
+    },
   },
-  actions: {},
+  actions: {
+    /* 请求歌词 */
+    async reqLyric({ commit }, payload) {
+      const result = await getLyric(payload.id);
+      commit("setLyric", result.data.lrc.lyric);
+    },
+  },
   modules: {},
 });
