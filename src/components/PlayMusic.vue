@@ -44,9 +44,12 @@
     </div>
 
     <!-- 歌词 ------------------------------------------------------------------->
-    <div v-show="isLyric" class="play-lyric">
+    <div ref="playLyricRef" v-show="isLyric" class="play-lyric">
       <p
-        :class="{ active: true }"
+        :class="{
+          active:
+            currentTime * 1000 >= item.pre && currentTime * 1000 < item.time,
+        }"
         v-for="(item, index) in $store.getters.lyricList"
         :key="index"
       >
@@ -90,7 +93,7 @@
 </template>
 
 <script>
-import { defineComponent, ref, computed } from "vue";
+import { defineComponent, ref, computed, watch } from "vue";
 import { useStore } from "vuex";
 import Vue3Marquee from "vue3-marquee";
 
@@ -99,12 +102,28 @@ export default defineComponent({
   props: ["playDetail", "isPaused", "play"],
   setup(props) {
     const isLyric = ref(true); // 是否显示歌词
+    const playLyricRef = ref(null);
+
     const store = useStore();
     const lyric = computed(() => store.state.lyric); // 获取vuex里的歌词
+    const currentTime = computed(() => store.state.currentTime);
+
+    watch(currentTime, (newVal, oldVal) => {
+      const p = document.querySelector("p.active");
+      // const offsetTop = p.offsetTop;
+      // const h = playLyricRef.value.offsetHeight;
+      // if (offsetTop > h) {
+      //   playLyricRef.value.scrollTop =
+      //     playLyricRef.value.scrollTop + (offsetTop - h / 2);
+      // }
+      playLyricRef.value.scrollTop = p.offsetTop; // 歌词的滚动
+    });
 
     return {
       isLyric,
       lyric,
+      currentTime,
+      playLyricRef,
     };
   },
 });

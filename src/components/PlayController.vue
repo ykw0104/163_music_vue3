@@ -56,6 +56,7 @@ export default defineComponent({
     const store = useStore();
     const playlist = computed(() => store.state.playlist);
     const playCurrentIndex = computed(() => store.state.playCurrentIndex);
+    const intervalId = computed(() => store.state.intervalId);
 
     const audioRef = ref(null); // 获取音频对象
     const isPaused = ref(true); // 默认暂停
@@ -66,11 +67,23 @@ export default defineComponent({
       if (audioRef.value.paused) {
         audioRef.value.play();
         isPaused.value = false;
+        updateTime();
       } else {
         audioRef.value.pause();
         isPaused.value = true;
+        clearInterval(intervalId.value);
       }
     };
+
+    /* 更新歌曲时间 */
+    const updateTime = () => {
+      const id = setInterval(() => {
+        store.commit("setCurrentTime", audioRef.value.currentTime);
+      }, 1000);
+
+      store.commit("setIntervalId", id);
+    };
+
     onMounted(() => {
       // console.log("mounted", playlist.value);
     });
