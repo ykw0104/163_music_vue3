@@ -86,6 +86,11 @@ export default defineComponent({
 
     onMounted(() => {
       // console.log("mounted", playlist.value);
+      // if (playlist.value.length > 0) {
+      //   store.dispatch("reqLyric", {
+      //     id: playlist.value[playCurrentIndex.value].id,
+      //   });
+      // }
     });
 
     onUpdated(() => {

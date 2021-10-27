@@ -65,7 +65,9 @@
       <svg class="icon" aria-hidden="true" @click="play">
         <use xlink:href="#icon-xunhuan"></use>
       </svg>
-      <svg class="icon" aria-hidden="true" @click="play">
+
+      <!-- 2 上一首 -->
+      <svg class="icon" aria-hidden="true" @click="goPlay(-1)">
         <use xlink:href="#icon-shangyishoushangyige"></use>
       </svg>
 
@@ -82,7 +84,9 @@
       <svg v-else class="icon play-bofang" aria-hidden="true" @click="play">
         <use xlink:href="#icon-weibiaoti519"></use>
       </svg>
-      <svg class="icon" aria-hidden="true" @click="play">
+
+      <!-- 3. 下一首 -->
+      <svg class="icon" aria-hidden="true" @click="goPlay(1)">
         <use xlink:href="#icon-xiayigexiayishou"></use>
       </svg>
       <svg class="icon" aria-hidden="true" @click="play">
@@ -107,6 +111,8 @@ export default defineComponent({
     const store = useStore();
     const lyric = computed(() => store.state.lyric); // 获取vuex里的歌词
     const currentTime = computed(() => store.state.currentTime);
+    const playlist = computed(() => store.state.playlist);
+    const playCurrentIndex = computed(() => store.state.playCurrentIndex);
 
     watch(currentTime, (newVal, oldVal) => {
       const p = document.querySelector("p.active");
@@ -119,11 +125,23 @@ export default defineComponent({
       playLyricRef.value.scrollTop = p.offsetTop; // 歌词的滚动
     });
 
+    /* 上一首,下一首 */
+    const goPlay = (num) => {
+      let index = playCurrentIndex.value + num;
+      if (index < 0) {
+        index = playlist.value.length - 1;
+      } else if (index === playlist.value.length) {
+        index = 0;
+      }
+      store.commit("setPlayIndex", index);
+    };
+
     return {
       isLyric,
       lyric,
       currentTime,
       playLyricRef,
+      goPlay,
     };
   },
 });

@@ -46,8 +46,8 @@ export default createStore({
     },
 
     /* 播放第几首歌 */
-    setPlayIndex(state, payload) {
-      state.playCurrentIndex = payload;
+    setPlayIndex(state, index) {
+      state.playCurrentIndex = index;
     },
 
     /* 设置歌词 */
