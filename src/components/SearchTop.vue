@@ -20,7 +20,12 @@
     <div v-show="searchSongs.length === 0" class="history">
       <div class="history-left">历史</div>
       <div class="history-right">
-        <div class="keyword-item" v-for="(item, i) in keywordList" :key="i">
+        <div
+          class="keyword-item"
+          v-for="(item, i) in keywordList"
+          :key="i"
+          @click="historySearch(item)"
+        >
           {{ item }}
         </div>
       </div>
@@ -100,6 +105,7 @@ export default defineComponent({
         : [];
     });
 
+    /* 保存关键字 */
     const saveKeyWord = async () => {
       keywordList.value.push(searchKeyWord.value);
       keywordList.value = Array.from(new Set(keywordList.value)); // 去重复
@@ -111,9 +117,16 @@ export default defineComponent({
         );
       }
       localStorage.setItem("keywordList", JSON.stringify(keywordList.value));
+
       // 搜索关键词
       const result = await searchMusic(searchKeyWord.value);
       searchSongs.value = result.data.result.songs;
+    };
+
+    /* 关键字搜索 */
+    const historySearch = (keyword) => {
+      searchKeyWord.value = keyword;
+      saveKeyWord();
     };
     return {
       placeholder,
@@ -125,6 +138,7 @@ export default defineComponent({
       changeValue,
       getRandomArrayElements,
       rangeRandom,
+      historySearch,
     };
   },
 });
@@ -133,13 +147,18 @@ export default defineComponent({
 <style lang="scss" scoped>
 .search-top {
   width: 7.5rem;
+  height: calc(100vh - 1.2rem);
   padding: 0 0.4rem;
 
   .search-top-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
     display: flex;
     align-items: center;
     width: 100%;
     height: 1.2rem;
+    padding: 0 0.4rem;
 
     .icon {
       width: 0.5rem;
@@ -162,6 +181,7 @@ export default defineComponent({
 
   .history {
     display: flex;
+    margin-top: 1.2rem;
 
     .history-left {
       width: 1.2rem;
@@ -190,12 +210,15 @@ export default defineComponent({
 }
 
 .play-list {
+  position: fixed;
+  top: 1.2rem;
+  bottom: 1.2rem;
   width: 7.5rem;
   padding: 0 0.4rem;
-  margin-top: 0.4rem;
   background-color: #fff;
   border-top-left-radius: 0.3rem;
   border-top-right-radius: 0.3rem;
+  overflow: scroll;
 
   .play-list-top {
     display: flex;
