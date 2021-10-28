@@ -47,3 +47,14 @@ export const getLyric = (musicId) => {
     },
   });
 };
+
+/* 搜索歌曲 */
+export const searchMusic = (keywords) => {
+  return request({
+    method: "",
+    url: "/search",
+    params: {
+      keywords,
+    },
+  });
+};
