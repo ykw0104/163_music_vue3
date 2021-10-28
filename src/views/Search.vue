@@ -16,7 +16,4 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss" scoped>
-#search-page {
-}
-</style>
+<style lang="scss" scoped></style>
